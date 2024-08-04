@@ -2,7 +2,6 @@ package com.wx.youqsd_manage.dto;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -20,12 +19,10 @@ import java.util.Date;
 @ApiModel("基础查询参数，可以为空")
 public class PageDTO implements Serializable {
 
-    @NotNull
     @ApiModelProperty(value = "页号", dataType = "int")
     private Integer pageNum;
 
 
-    @NotNull
     @ApiModelProperty(value = "每页数量", dataType = "int")
     private Integer pageSize;
 
