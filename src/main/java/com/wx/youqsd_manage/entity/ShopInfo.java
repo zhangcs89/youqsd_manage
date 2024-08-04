@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -33,22 +32,18 @@ public class ShopInfo {
 
     @ApiModelProperty(value = "店铺地址",required = true)
     @TableField(value="shop_addr")
-    @NotNull
     private String shopAddr;
 
     @ApiModelProperty(value = "店铺名称",required = true)
     @TableField(value="shop_name")
-    @NotNull
     private String shopName;
 
     @ApiModelProperty(value = "联系人",required = true)
     @TableField(value="contact_name")
-    @NotNull
     private String contactName;
 
     @ApiModelProperty(value = "联系电话",required = true)
     @TableField(value="contact_phone")
-    @NotNull
     private String contactPhone;
 
     @TableField(value="create_time")
