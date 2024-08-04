@@ -1,0 +1,33 @@
+spring:
+  main:
+    allow-circular-references: true
+  profiles:
+    # dev开发环境  prod正式环境
+    active: dev
+  application:
+    name: youqsd_manage
+  aop:
+    proxy-target-class: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  typeAliasesPackage: com.wx.youqsd_manage.entity
+  global-config:
+    id-type: 0
+    field-strategy: 2
+    db-column-underline: true
+    refresh-mapper: true
+    map-underscore-to-camel-case: true
+
+
+management:
+  server:
+    add-application-context-header: false
