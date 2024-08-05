@@ -7,7 +7,7 @@
     <artifactId>youqsd_manage</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>youqsd_manage</name>
-
+    <packaging>jar</packaging>
     <description>youqsd_manage</description>
         <properties>
             <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -213,28 +213,6 @@
     </dependencyManagement>
 
     <build>
-<!--        <resources>-->
-<!--            <resource>-->
-<!--                <directory>src/main/resources</directory>-->
-<!--                <includes>-->
-<!--                    <include>**/*.properties</include>-->
-<!--                    <include>**/*.yml</include>-->
-<!--                    <include>**/*.xml</include>-->
-<!--                    <include>**/*.tld</include>-->
-<!--                </includes>-->
-<!--                <filtering>false</filtering>-->
-<!--            </resource>-->
-<!--            <resource>-->
-<!--            <directory>src/main/java</directory>-->
-<!--            <includes>-->
-<!--                <include>**/*.properties</include>-->
-<!--                <include>**/*.yml</include>-->
-<!--                <include>**/*.xml</include>-->
-<!--                <include>**/*.tld</include>-->
-<!--            </includes>-->
-<!--            <filtering>false</filtering>-->
-<!--            </resource>-->
-<!--        </resources>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
