@@ -78,6 +78,7 @@ public class ShopController {
                 && StringUtils.isEmptyOrWhitespaceOnly((req.getWxName()))) {
             return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);
         }
+        logger.error("error日志示例");
         logger.info("info日志示例");
         IPage<ShopInfoPageResp> pageList = shopService.findPageList(req);
         return ResponseEntity.success(pageList);

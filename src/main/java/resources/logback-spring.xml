@@ -16,68 +16,68 @@
             <charset>UTF-8</charset> <!-- 此处设置字符集 -->
         </encoder>
 
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>DEBUG</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
+<!--        &lt;!&ndash; 级别过滤 &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>DEBUG、INFO、WARN、ERROR</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
 
     </appender>
+
+<!--    &lt;!&ndash;输出到控制台&ndash;&gt;-->
+<!--    <appender name="console_info" class="ch.qos.logback.core.ConsoleAppender">-->
+
+<!--        &lt;!&ndash;日志输出格式 &ndash;&gt;-->
+<!--        <encoder>-->
+<!--            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集 &ndash;&gt;-->
+<!--        </encoder>-->
+
+<!--        &lt;!&ndash; 级别过滤 &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>INFO</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+
+<!--    </appender>-->
 
     <!--输出到控制台-->
-    <appender name="console_info" class="ch.qos.logback.core.ConsoleAppender">
+<!--    <appender name="console_warn" class="ch.qos.logback.core.ConsoleAppender">-->
 
-        <!--日志输出格式 -->
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
-        </encoder>
+<!--        &lt;!&ndash;日志输出格式 &ndash;&gt;-->
+<!--        <encoder>-->
+<!--            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集 &ndash;&gt;-->
+<!--        </encoder>-->
 
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
+<!--        &lt;!&ndash; 级别过滤 &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>WARN</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
 
-    </appender>
+<!--    </appender>-->
 
-    <!--输出到控制台-->
-    <appender name="console_warn" class="ch.qos.logback.core.ConsoleAppender">
+<!--    &lt;!&ndash;输出到控制台&ndash;&gt;-->
+<!--    <appender name="console_error" class="ch.qos.logback.core.ConsoleAppender">-->
 
-        <!--日志输出格式 -->
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
-        </encoder>
+<!--        &lt;!&ndash;日志输出格式 &ndash;&gt;-->
+<!--        <encoder>-->
+<!--            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集 &ndash;&gt;-->
+<!--        </encoder>-->
 
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
+<!--        &lt;!&ndash; 级别过滤 &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>ERROR</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
 
-    </appender>
-
-    <!--输出到控制台-->
-    <appender name="console_error" class="ch.qos.logback.core.ConsoleAppender">
-
-        <!--日志输出格式 -->
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
-        </encoder>
-
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-
-    </appender>
+<!--    </appender>-->
 
     <!--输出到文件-->
     <appender name="file_debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -100,107 +100,107 @@
         </rollingPolicy>
 
         <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>DEBUG</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>DEBUG、INFO、WARN、ERROR</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
     </appender>
 
-    <!--输出到文件-->
-    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 正在记录的日志文件的路径及文件名 -->
-        <file>${log.path}/log_info.log</file>
-        <!--日志输出格式 -->
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
-        </encoder>
+<!--    &lt;!&ndash;输出到文件&ndash;&gt;-->
+<!--    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        &lt;!&ndash; 正在记录的日志文件的路径及文件名 &ndash;&gt;-->
+<!--        <file>${log.path}/log_info.log</file>-->
+<!--        &lt;!&ndash;日志输出格式 &ndash;&gt;-->
+<!--        <encoder>-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集 &ndash;&gt;-->
+<!--        </encoder>-->
 
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/sys_log-info-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
-            <!-- 除按日志记录之外，还配置了日志文件不能超过50M，若超过50M，日志文件会以索引0开始， 命名日志文件，例如xxx-2023-07-16.0.log -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>50MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-            <!-- 日志保存周期  天数-->
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${log.path}/sys_log-info-%d{yyyy-MM-dd}-%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash; 除按日志记录之外，还配置了日志文件不能超过50M，若超过50M，日志文件会以索引0开始， 命名日志文件，例如xxx-2023-07-16.0.log &ndash;&gt;-->
+<!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--                <maxFileSize>50MB</maxFileSize>-->
+<!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--            &lt;!&ndash; 日志保存周期  天数&ndash;&gt;-->
+<!--            <maxHistory>30</maxHistory>-->
+<!--        </rollingPolicy>-->
 
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--        &lt;!&ndash; 级别过滤 &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>INFO</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
-    <!--输出到文件-->
-    <appender name="file_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 正在记录的日志文件的路径及文件名 -->
-        <file>${log.path}/log_warn.log</file>
-        <!--日志输出格式 -->
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
-        </encoder>
+<!--    &lt;!&ndash;输出到文件&ndash;&gt;-->
+<!--    <appender name="file_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        &lt;!&ndash; 正在记录的日志文件的路径及文件名 &ndash;&gt;-->
+<!--        <file>${log.path}/log_warn.log</file>-->
+<!--        &lt;!&ndash;日志输出格式 &ndash;&gt;-->
+<!--        <encoder>-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集 &ndash;&gt;-->
+<!--        </encoder>-->
 
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/sys_log-warn-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
-            <!-- 除按日志记录之外，还配置了日志文件不能超过50M，若超过50M，日志文件会以索引0开始， 命名日志文件，例如xxx-2023-07-16.0.log -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>50MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-            <!-- 日志保存周期  天数-->
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${log.path}/sys_log-warn-%d{yyyy-MM-dd}-%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash; 除按日志记录之外，还配置了日志文件不能超过50M，若超过50M，日志文件会以索引0开始， 命名日志文件，例如xxx-2023-07-16.0.log &ndash;&gt;-->
+<!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--                <maxFileSize>50MB</maxFileSize>-->
+<!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--            &lt;!&ndash; 日志保存周期  天数&ndash;&gt;-->
+<!--            <maxHistory>30</maxHistory>-->
+<!--        </rollingPolicy>-->
 
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--        &lt;!&ndash; 级别过滤 &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>WARN</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
-    <!--输出到文件-->
-    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 正在记录的日志文件的路径及文件名 -->
-        <file>${log.path}/log_error.log</file>
-        <!--日志输出格式 -->
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
-        </encoder>
+<!--    &lt;!&ndash;输出到文件&ndash;&gt;-->
+<!--    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        &lt;!&ndash; 正在记录的日志文件的路径及文件名 &ndash;&gt;-->
+<!--        <file>${log.path}/log_error.log</file>-->
+<!--        &lt;!&ndash;日志输出格式 &ndash;&gt;-->
+<!--        <encoder>-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集 &ndash;&gt;-->
+<!--        </encoder>-->
 
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/sys_log-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
-            <!-- 除按日志记录之外，还配置了日志文件不能超过50M，若超过50M，日志文件会以索引0开始， 命名日志文件，例如xxx-2023-07-16.0.log -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>50MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-            <!-- 日志保存周期  天数-->
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${log.path}/sys_log-error-%d{yyyy-MM-dd}-%i.log</fileNamePattern>-->
+<!--            &lt;!&ndash; 除按日志记录之外，还配置了日志文件不能超过50M，若超过50M，日志文件会以索引0开始， 命名日志文件，例如xxx-2023-07-16.0.log &ndash;&gt;-->
+<!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--                <maxFileSize>50MB</maxFileSize>-->
+<!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--            &lt;!&ndash; 日志保存周期  天数&ndash;&gt;-->
+<!--            <maxHistory>30</maxHistory>-->
+<!--        </rollingPolicy>-->
 
-        <!-- 级别过滤 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--        &lt;!&ndash; 级别过滤 &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>ERROR</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
 
     <root level="info">
         <appender-ref ref="file_debug" />
-        <appender-ref ref="file_info" />
-        <appender-ref ref="file_warn" />
-        <appender-ref ref="file_error" />
+<!--        <appender-ref ref="file_info" />-->
+<!--        <appender-ref ref="file_warn" />-->
+<!--        <appender-ref ref="file_error" />-->
         <appender-ref ref="console_debug" />
-        <appender-ref ref="console_info" />
-        <appender-ref ref="console_warn" />
-        <appender-ref ref="console_error" />
+<!--        <appender-ref ref="console_info" />-->
+<!--        <appender-ref ref="console_warn" />-->
+<!--        <appender-ref ref="console_error" />-->
     </root>
 
 </configuration>
