@@ -60,7 +60,7 @@ public class ShopController {
 
     @ApiOperation(value = "删除店铺", notes = "删除店铺", httpMethod = "GET", consumes = MimeConstant.JSON)
     @GetMapping("/delShop")
-    public Response delShop(@RequestParam(value = "id", required = false) int id) {
+    public Response delShop(@RequestParam(value = "id", required = true) int id) {
         if (StringUtils.isEmptyOrWhitespaceOnly((id+""))
         ) {
             return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);

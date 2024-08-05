@@ -36,7 +36,7 @@ public class LoginConttroller {
 
     @ApiOperation(value = "后台根据账号密码登陆", notes = "后台登陆", httpMethod = "POST", consumes = MimeConstant.JSON)
     @PostMapping("back/login")
-    public Response login(@RequestBody UserLoginReq req)  {
+    public Response backLogin(@RequestBody UserLoginReq req) {
         try {
             userService.backLogin(req);
             return ResponseEntity.success();
@@ -44,5 +44,12 @@ public class LoginConttroller {
             return ResponseEntity.fail(ErrcodeStatus.USERNAME_PASS_ERROR);
         }
 
+    }
+
+    @ApiOperation(value = "微信登录", notes = "后台登陆", httpMethod = "POST", consumes = MimeConstant.JSON)
+    @PostMapping("wx/login")
+    public Response wxLogin(@RequestParam(value = "code", required = true) String code) {
+        userService.wxLogin(code);
+        return ResponseEntity.success();
     }
 }

@@ -48,4 +48,11 @@ public interface IUserService extends IService<UserInfo> {
      * @return
      */
     public IPage<UserInfoPageResp> findPageList(UserInfoPageReq req);
+
+    /**
+     * 微信登录
+     * @param code
+     * @return
+     */
+    public String wxLogin(String code) ;
 }

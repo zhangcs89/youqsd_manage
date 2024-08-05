@@ -59,4 +59,6 @@ public class UserInfo {
     @ApiModelProperty(value = "UnionID是一个可以跨多个公众号或小程序的唯一标识",required = false)
     private String unionId;
 
+    private String SessionKey;
+
 }
