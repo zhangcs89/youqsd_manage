@@ -36,3 +36,13 @@ mybatis-plus:
 management:
   server:
     add-application-context-header: false
+
+wx:
+  appId:
+    wx5bfbae0d9f670d83
+  appSecret:
+    3c6faaccc38c8ad04ade2578afbbdf56
+  loginUrl:
+    https://api.weixin.qq.com/sns/jscode2session
+  getphonenumber:
+    https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=

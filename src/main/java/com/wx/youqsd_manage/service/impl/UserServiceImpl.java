@@ -58,6 +58,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
     @Value("${wx.loginUrl}")
     private String wxLoginUrl;
 
+    @Value("${wx.getphonenumber}")
+    private String phonenumberUrl;
+
     @Resource
     UserMapper userMapper;
 

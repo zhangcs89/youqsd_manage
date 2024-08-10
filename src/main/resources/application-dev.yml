@@ -52,11 +52,7 @@ logging:
       sql:
         Statement: debug
 
-wx:
-  appId: wxxxxxxxxxxxxx
-  appSecret: 1cxxxxxxxxxxx
-  loginUrl: https://api.weixin.qq.com/sns/jscode2session
-  getphonenumber: https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=
+
 
 swagger:
   enable: true
