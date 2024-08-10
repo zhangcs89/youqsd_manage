@@ -16,6 +16,11 @@ spring:
   mvc:
     path match:
       matching-strategy: ant_path_matcher
+  boot:
+    admin:
+      client:
+        instance:
+          name: ${spring.application.name}
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*Mapper.xml
