@@ -15,16 +15,16 @@ import java.io.Serializable;
 @ApiModel("登陆请求对象")
 public class UserLoginReq implements Serializable {
     @ApiModelProperty("用户名")
-    private String userName;
+    private String username;
     @ApiModelProperty("密码")
     private String password;
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

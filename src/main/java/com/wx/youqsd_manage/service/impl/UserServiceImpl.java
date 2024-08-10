@@ -44,7 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
     @Override
     public void backLogin(UserLoginReq req) throws DefineException {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_name",req.getUserName());
+        queryWrapper.eq("user_name",req.getUsername());
         queryWrapper.eq("password",req.getPassword());
         List<UserInfo> userInfos = userMapper.selectList(queryWrapper);
         if(CollectionUtils.isEmpty(userInfos)){
