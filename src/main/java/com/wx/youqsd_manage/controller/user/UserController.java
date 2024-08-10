@@ -3,6 +3,7 @@ package com.wx.youqsd_manage.controller.user;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mysql.cj.util.StringUtils;
 import com.wx.youqsd_manage.common.constant.MimeConstant;
+import com.wx.youqsd_manage.common.exception.DefineException;
 import com.wx.youqsd_manage.common.exception.ErrcodeStatus;
 import com.wx.youqsd_manage.common.response.Response;
 import com.wx.youqsd_manage.common.response.ResponseEntity;
@@ -39,7 +40,11 @@ public class UserController {
 
     @ApiOperation(value = "新增用户", notes = "新增用户", httpMethod = "POST", consumes = MimeConstant.JSON)
     @PostMapping("/addUser")
-    public Response addUser(@Valid @RequestBody UserInfo userInfo) {
+    public Response addUser(@Valid @RequestBody UserInfo userInfo) throws DefineException {
+        if (StringUtils.isEmptyOrWhitespaceOnly((userInfo.getPhoneNo()))
+        ) {
+            return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);
+        }
         userService.insert(userInfo);
         return ResponseEntity.success();
     }
@@ -47,8 +52,9 @@ public class UserController {
     @ApiOperation(value = "修改用户", notes = "修改用户", httpMethod = "POST", consumes = MimeConstant.JSON)
     @PostMapping("/modUser")
     public Response modUser(@Valid @RequestBody UserInfo userInfo) {
-        if (StringUtils.isEmptyOrWhitespaceOnly((userInfo.getId()+""))
-        ) {
+        if (StringUtils.isEmptyOrWhitespaceOnly((userInfo.getId() + ""))
+                || (StringUtils.isEmptyOrWhitespaceOnly((userInfo.getPhoneNo()))
+        )) {
             return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);
         }
         userService.mod(userInfo);
@@ -58,7 +64,7 @@ public class UserController {
     @ApiOperation(value = "删除用户", notes = "删除用户", httpMethod = "GET", consumes = MimeConstant.JSON)
     @GetMapping("/delUser")
     public Response delUser(@RequestParam(value = "id", required = false) int id) {
-        if (StringUtils.isEmptyOrWhitespaceOnly((id+""))
+        if (StringUtils.isEmptyOrWhitespaceOnly((id + ""))
         ) {
             return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);
         }

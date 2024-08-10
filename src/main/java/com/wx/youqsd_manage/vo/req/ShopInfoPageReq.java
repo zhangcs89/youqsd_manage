@@ -17,29 +17,90 @@ import java.io.Serializable;
  * @Date 2024/8/4 15:36
  * @Version 1.0
  */
-@Data
 @ApiModel("店铺请求对象")
 public class ShopInfoPageReq extends PageDTO implements Serializable {
 
     @ApiModelProperty(name = "shopAddr",value = "店铺地址")
+    @JsonProperty("shopAddr")
     private String shopAddr;
 
     @ApiModelProperty("店铺名称")
+    @JsonProperty("shopName")
     private String shopName;
 
     @ApiModelProperty("联系人")
+    @JsonProperty("contactName")
     private String contactName;
 
     @ApiModelProperty("联系电话")
+    @JsonProperty("contactPhone")
     private String contactPhone;
 
     @ApiModelProperty("用户姓名")
+    @JsonProperty("userName")
     private String userName;
 
     @ApiModelProperty("手机号")
+    @JsonProperty("phoneNo")
     private String phoneNo;
 
     @ApiModelProperty("微信名称")
+    @JsonProperty("wxName")
     private String wxName;
 
+    public String getShopAddr() {
+        return shopAddr;
+    }
+
+    public void setShopAddr(String shopAddr) {
+        this.shopAddr = shopAddr;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public String getWxName() {
+        return wxName;
+    }
+
+    public void setWxName(String wxName) {
+        this.wxName = wxName;
+    }
 }

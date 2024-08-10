@@ -7,7 +7,7 @@ package com.wx.youqsd_manage.common.exception;
  * @Date 2024/8/4 18:43
  * @Version 1.0
  */
-public class DefineException extends Exception implements ICodeMessage {
+public class DefineException extends RuntimeException implements ICodeMessage {
     private static final long serialVersionUID = 2L;
     protected final int code;
 

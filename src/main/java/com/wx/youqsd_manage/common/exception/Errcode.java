@@ -11,4 +11,6 @@ public class Errcode {
     public static final int PARAM_ERROR = 10000;
     public static final int USERNAME_PASS_ERROR = 10001;
 
+    public static final int PHONE_EXIST_ERROR = 10002;
+
 }

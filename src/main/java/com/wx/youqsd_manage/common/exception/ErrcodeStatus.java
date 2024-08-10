@@ -19,7 +19,9 @@ public enum ErrcodeStatus implements ICodeMessage {
     // 其他错误的定义
     PARAM_ERROR(Errcode.PARAM_ERROR, "参数错误"),
 
-    USERNAME_PASS_ERROR(Errcode.USERNAME_PASS_ERROR, "用户名或密码错误");
+    USERNAME_PASS_ERROR(Errcode.USERNAME_PASS_ERROR, "用户名或密码错误"),
+
+    PHONE_EXIST_ERROR(Errcode.PHONE_EXIST_ERROR, "手机号已存在");
 
 
 

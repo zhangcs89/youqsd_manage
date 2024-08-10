@@ -2,6 +2,7 @@ package com.wx.youqsd_manage.dto;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -20,10 +21,12 @@ import java.util.Date;
 public class PageDTO implements Serializable {
 
     @ApiModelProperty(value = "页号", dataType = "int")
+    @JsonProperty("pageNum")
     private Integer pageNum;
 
 
     @ApiModelProperty(value = "每页数量", dataType = "int")
+    @JsonProperty("pageSize")
     private Integer pageSize;
 
 //    @ApiModelProperty(value = "开始时间", dataType = "Date")

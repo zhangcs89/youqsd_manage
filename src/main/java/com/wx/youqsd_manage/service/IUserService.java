@@ -28,7 +28,7 @@ public interface IUserService extends IService<UserInfo> {
      * 新增
      * @param userInfo
      */
-    public void insert(UserInfo userInfo);
+    public void insert(UserInfo userInfo) throws DefineException ;
 
     /**
      * 变更

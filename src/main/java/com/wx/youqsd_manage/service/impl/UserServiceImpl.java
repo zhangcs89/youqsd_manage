@@ -74,13 +74,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
     }
 
     @Override
-    public void insert(UserInfo userInfo) {
+    public void insert(UserInfo userInfo) throws DefineException  {
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone_no", userInfo.getPhoneNo());
+        UserInfo info = userMapper.selectOne(queryWrapper);
+        if(info != null){
+            throw new DefineException(ErrcodeStatus.PHONE_EXIST_ERROR);
+        }
         userInfo.setUserType("1");
         userMapper.insert(userInfo);
     }
 
     @Override
     public void mod(UserInfo userInfo) {
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone_no", userInfo.getPhoneNo());
+        UserInfo info = userMapper.selectOne(queryWrapper);
+        if(info != null && (info.getUserId().equals(userInfo.getId()))){
+            throw new DefineException(ErrcodeStatus.PHONE_EXIST_ERROR);
+        }
+
         UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("id", userInfo.getId());
         userMapper.update(userInfo, updateWrapper);
@@ -110,12 +123,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         List<UserInfo> records = userInfoPage.getRecords();
         Page<UserInfoPageResp> pageNew = new Page<>();
         List<UserInfoPageResp> respList = new ArrayList<>();
-        for (UserInfo leadStatistics : records) {
-            UserInfoPageResp resp = new UserInfoPageResp();
-            BeanUtils.copyProperties(leadStatistics, resp);
-            respList.add(resp);
+        for (int i = 0; i < records.size(); i++) {
+            if(!("admin").equals(records.get(i).getUserName())){
+                UserInfoPageResp resp = new UserInfoPageResp();
+                BeanUtils.copyProperties(records.get(i), resp);
+                respList.add(resp);
+            }
         }
-        pageNew.setTotal(userInfoPage.getTotal());
+        pageNew.setTotal(respList.size());
         pageNew.setSize(userInfoPage.getSize());
         pageNew.setPages(userInfoPage.getPages());
         pageNew.setRecords(respList);
