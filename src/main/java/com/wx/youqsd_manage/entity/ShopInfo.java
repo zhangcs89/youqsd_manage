@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -32,18 +33,22 @@ public class ShopInfo {
 
     @ApiModelProperty(value = "店铺地址",required = true)
     @TableField(value="shop_addr")
+    @JsonProperty("shopAddr")
     private String shopAddr;
 
     @ApiModelProperty(value = "店铺名称",required = true)
     @TableField(value="shop_name")
+    @JsonProperty("shopName")
     private String shopName;
 
     @ApiModelProperty(value = "联系人",required = true)
     @TableField(value="contact_name")
+    @JsonProperty("contactName")
     private String contactName;
 
     @ApiModelProperty(value = "联系电话",required = true)
     @TableField(value="contact_phone")
+    @JsonProperty("contactPhone")
     private String contactPhone;
 
     @TableField(value="create_time")
