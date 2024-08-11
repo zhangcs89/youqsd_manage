@@ -78,10 +78,20 @@ public class ShopController {
                 && StringUtils.isEmptyOrWhitespaceOnly((req.getWxName()))) {
             return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);
         }
-        logger.error("error日志示例");
-        logger.info("info日志示例");
         IPage<ShopInfoPageResp> pageList = shopService.findPageList(req);
         return ResponseEntity.success(pageList);
+    }
+
+    @ApiOperation(value = "店铺详情", notes = "店铺详情",
+            httpMethod = "GET", consumes = MimeConstant.JSON)
+    @GetMapping("/shopDetail")
+    public Response<ShopInfo> shopDetail(@RequestParam(value = "id", required = true) int id) {
+        if (StringUtils.isEmptyOrWhitespaceOnly((id+""))
+        ) {
+            return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);
+        }
+        ShopInfo shopInfo = shopService.getById(id);
+        return ResponseEntity.success(shopInfo);
     }
 
 }

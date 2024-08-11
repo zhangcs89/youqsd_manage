@@ -8,7 +8,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://101.42.1.209:3306/youqsd_manage_prod
+    url: jdbc:mysql://127.0.0.1:3306/youqsd_manage_test
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
