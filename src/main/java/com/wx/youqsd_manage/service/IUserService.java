@@ -52,7 +52,8 @@ public interface IUserService extends IService<UserInfo> {
     /**
      * 微信登录
      * @param code
+     * @param opCode
      * @return
      */
-    public UserInfo  wxLogin(String code) ;
+    public UserInfo  wxLogin(String code,String opCode) ;
 }

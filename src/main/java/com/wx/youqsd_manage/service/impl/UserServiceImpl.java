@@ -3,10 +3,6 @@ package com.wx.youqsd_manage.service.impl;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -15,7 +11,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wx.youqsd_manage.common.exception.DefineException;
 import com.wx.youqsd_manage.common.exception.ErrcodeStatus;
 import com.wx.youqsd_manage.common.util.VirtualSerialNo;
-import com.wx.youqsd_manage.entity.ShopInfo;
 import com.wx.youqsd_manage.entity.UserInfo;
 import com.wx.youqsd_manage.mappper.UserMapper;
 import com.wx.youqsd_manage.service.IUserService;
@@ -26,10 +21,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -63,6 +59,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 
     @Resource
     UserMapper userMapper;
+//
+//    @Autowired
+//    private RedisTemplate redisTemplate;
 
     @Override
     public void backLogin(UserLoginReq req) throws DefineException {
@@ -144,8 +143,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 
 
     @Override
-    public UserInfo  wxLogin(String code) {
-        String url = wxLoginUrl + "?appid=" + appId + "&secret=" + appSecret + "&js_code=" + code + "&grant_type=authorization_code";
+    public UserInfo  wxLogin(String code,String opCode) {
+        String url = wxLoginUrl + "?appid=" + appId + "&secret=" + appSecret + "&js_code=" + opCode + "&grant_type=authorization_code";
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -154,7 +153,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 
         // 解析微信服务器的响应
         String responseBody = response.getBody();
-        System.out.println("responseBody+++++++++++++++++++++++++++"+responseBody);
+        System.out.println("获取opid返回值+++++++++++++++++++++++++++"+responseBody);
         //提取openid和session_key
         Map<String, String> wxResponse = parseWxResponse(responseBody);
         String openid = wxResponse.get("openid");
@@ -165,20 +164,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         queryWrapper.eq("open_id", openid);
         UserInfo user = userMapper.selectOne(queryWrapper);
         if (user == null) {
-            //调用小程序获取手机号
-            getPhonNo(code);
-            // 如果没有，创建一个新的用户
-            user = new UserInfo();
-            user.setOpenId(openid);
-            user.setPassword("123456");
+            //调用小程序获取手机号,并插入新的数据
+            String str = getPhonNo(code);
+            JSONObject jsonObject = JSON.parseObject(str);
+            if(jsonObject.getInteger("errcode") == 0){
+                Map phoneInfo = jsonObject.getObject("phone_info", Map.class);
+                Object phoneNumber = phoneInfo.get("phoneNumber");
+                user = new UserInfo();
+                user.setOpenId(openid);
+                user.setUserType("2");
+                user.setPhoneNo(phoneNumber.toString());
+                userMapper.insert(user);
+            }
         }
-        user.setSessionKey(session_key);
-
-
-        //  1.会话密钥 session_key 是对用户数据进行 加密签名 的密钥。
-        //  为了应用自身的数据安全，开发者服务器不应该把会话密钥下发到小程序，也不应该对外提供这个密钥。
-        //  2.临时登录凭证 code 只能使用一次，5分钟未被使用自动过期。
-        //  根据用户的openId生成token返回给前端
         return user;
     }
 
@@ -190,32 +188,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         return wxResponse;
     }
 
-    private Object getPhonNo(String code){
-        //通过appid和secret来获取token
-        //WXContent.APPID是自定义的全局变量
+    private String getAccessToken(){
         String tokenUrl = String.format(
                 "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
                 appId, appSecret);
         JSONObject token = JSON.parseObject(HttpUtil.get(tokenUrl));
+//        String accessToken = (String) redisTemplate.opsForValue().get("access_token");
+//        System.out.println("accessToken+++++++++++++++++++"+accessToken);
+        System.out.println("accessToken+++++++++++++++++++"+token.getString("access_token"));
+//        if(accessToken == null){
+//            accessToken = token.getString("access_token");
+//            redisTemplate.opsForValue().set("access_token", accessToken, 2, TimeUnit.HOURS);
+//        }
+        return token.getString("access_token");
+    }
 
+    private String getPhonNo(String code){
+        //通过appid和secret来获取token
+        String accessToken = getAccessToken();
         //通过token和code来获取用户手机号
-        String url = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=" + token.getString("access_token");
-
+        String url = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=" + accessToken;
         //封装请求体
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("code", code);
-
         //封装请求头
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
         HttpEntity<Map<String, String>> httpEntity = new HttpEntity<>(paramMap,headers);
-
         //通过RestTemplate发送请求，获取到用户手机号码
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(url, httpEntity, String.class);
         String responseBody = response.getBody();
-        System.out.println("responseBody+++++++++++++++++++++++++++"+responseBody);
+        System.out.println("获取手机号码+++++++++++++++++++++++++++"+responseBody);
         //返回到前端展示
         return response.getBody();
     }
