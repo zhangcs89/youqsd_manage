@@ -42,7 +42,6 @@ public class ShopController {
     @ApiOperation(value = "新增店铺", notes = "新增店铺", httpMethod = "POST", consumes = MimeConstant.JSON)
     @PostMapping("/addShop")
     public Response addShop(@Valid @RequestBody ShopInfo shopInfo) {
-
         shopService.insert(shopInfo);
         return ResponseEntity.success();
     }

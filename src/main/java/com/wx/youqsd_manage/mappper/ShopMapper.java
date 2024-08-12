@@ -3,6 +3,7 @@ package com.wx.youqsd_manage.mappper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wx.youqsd_manage.entity.ShopInfo;
+import com.wx.youqsd_manage.entity.UserShopRel;
 import com.wx.youqsd_manage.vo.req.ShopInfoPageReq;
 import com.wx.youqsd_manage.vo.resp.ShopInfoPageResp;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,7 +19,10 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ShopMapper extends BaseMapper<ShopInfo> {
 
+    int save(ShopInfo shopInfo);
+
     IPage<ShopInfoPageResp> findPageList(
             IPage<ShopInfoPageResp> page, @Param("param") ShopInfoPageReq param);
 
+    void insetRel(UserShopRel rel);
 }

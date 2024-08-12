@@ -51,6 +51,15 @@ public class ShopInfo {
     @JsonProperty("contactPhone")
     private String contactPhone;
 
+
+    @ApiModelProperty(value = "登录人手机号",required = true)
+    @JsonProperty("phoneNo")
+    private String phoneNo;
+
+    @ApiModelProperty(value = "登录人类型",required = true)
+    @JsonProperty("userType")
+    private String userType;
+
     @TableField(value="create_time")
     private Date createTime;
 

@@ -48,6 +48,10 @@ public class ShopInfoPageReq extends PageDTO implements Serializable {
     @JsonProperty("wxName")
     private String wxName;
 
+    @ApiModelProperty(value = "登录人类型",required = true)
+    @JsonProperty("userType")
+    private String userType;
+
     public String getShopAddr() {
         return shopAddr;
     }
@@ -102,5 +106,13 @@ public class ShopInfoPageReq extends PageDTO implements Serializable {
 
     public void setWxName(String wxName) {
         this.wxName = wxName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

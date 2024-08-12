@@ -7,6 +7,7 @@ import com.wx.youqsd_manage.common.exception.ErrcodeStatus;
 import com.wx.youqsd_manage.common.response.Response;
 import com.wx.youqsd_manage.common.response.ResponseEntity;
 import com.wx.youqsd_manage.common.exception.DefineException;
+import com.wx.youqsd_manage.entity.UserInfo;
 import com.wx.youqsd_manage.service.IUserService;
 import com.wx.youqsd_manage.vo.req.UserLoginReq;
 import io.swagger.annotations.Api;
@@ -47,9 +48,9 @@ public class LoginConttroller {
     }
 
     @ApiOperation(value = "微信登录", notes = "后台登陆", httpMethod = "POST", consumes = MimeConstant.JSON)
-    @PostMapping("wx/login")
+    @GetMapping("wx/login")
     public Response wxLogin(@RequestParam(value = "code", required = true) String code) {
-        userService.wxLogin(code);
-        return ResponseEntity.success();
+        UserInfo userInfo = userService.wxLogin(code);
+        return ResponseEntity.success(userInfo);
     }
 }

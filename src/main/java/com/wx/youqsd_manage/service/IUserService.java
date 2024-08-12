@@ -54,5 +54,5 @@ public interface IUserService extends IService<UserInfo> {
      * @param code
      * @return
      */
-    public String wxLogin(String code) ;
+    public UserInfo  wxLogin(String code) ;
 }

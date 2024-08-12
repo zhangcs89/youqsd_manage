@@ -144,7 +144,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 
 
     @Override
-    public String wxLogin(String code) {
+    public UserInfo  wxLogin(String code) {
         String url = wxLoginUrl + "?appid=" + appId + "&secret=" + appSecret + "&js_code=" + code + "&grant_type=authorization_code";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -165,6 +165,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         queryWrapper.eq("open_id", openid);
         UserInfo user = userMapper.selectOne(queryWrapper);
         if (user == null) {
+            //调用小程序获取手机号
+            getPhonNo(code);
             // 如果没有，创建一个新的用户
             user = new UserInfo();
             user.setOpenId(openid);
@@ -177,7 +179,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         //  为了应用自身的数据安全，开发者服务器不应该把会话密钥下发到小程序，也不应该对外提供这个密钥。
         //  2.临时登录凭证 code 只能使用一次，5分钟未被使用自动过期。
         //  根据用户的openId生成token返回给前端
-        return "";
+        return user;
     }
 
     private Map<String, String> parseWxResponse(String responseBody) {
@@ -188,7 +190,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         return wxResponse;
     }
 
-    private Object getPhonNo(Map<String,Object> data){
+    private Object getPhonNo(String code){
         //通过appid和secret来获取token
         //WXContent.APPID是自定义的全局变量
         String tokenUrl = String.format(
@@ -201,7 +203,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 
         //封装请求体
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("code", data.get("code").toString());
+        paramMap.put("code", code);
 
         //封装请求头
         HttpHeaders headers = new HttpHeaders();
@@ -211,8 +213,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 
         //通过RestTemplate发送请求，获取到用户手机号码
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Object> response = restTemplate.postForEntity(url, httpEntity, Object.class);
-
+        ResponseEntity<String> response = restTemplate.postForEntity(url, httpEntity, String.class);
+        String responseBody = response.getBody();
+        System.out.println("responseBody+++++++++++++++++++++++++++"+responseBody);
         //返回到前端展示
         return response.getBody();
     }

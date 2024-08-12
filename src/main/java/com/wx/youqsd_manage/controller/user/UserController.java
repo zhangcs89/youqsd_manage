@@ -63,7 +63,7 @@ public class UserController {
 
     @ApiOperation(value = "删除用户", notes = "删除用户", httpMethod = "GET", consumes = MimeConstant.JSON)
     @GetMapping("/delUser")
-    public Response delUser(@RequestParam(value = "id", required = false) int id) {
+    public Response delUser(@RequestParam(value = "id", required = true) int id) {
         if (StringUtils.isEmptyOrWhitespaceOnly((id + ""))
         ) {
             return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);
