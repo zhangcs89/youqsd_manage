@@ -13,7 +13,9 @@ import com.wx.youqsd_manage.common.exception.ErrcodeStatus;
 import com.wx.youqsd_manage.common.util.JwtUtils;
 import com.wx.youqsd_manage.common.util.VirtualSerialNo;
 import com.wx.youqsd_manage.entity.UserInfo;
+import com.wx.youqsd_manage.entity.UserShopRel;
 import com.wx.youqsd_manage.mappper.UserMapper;
+import com.wx.youqsd_manage.mappper.UserShopRelMapper;
 import com.wx.youqsd_manage.service.IUserService;
 import com.wx.youqsd_manage.vo.req.UserInfoPageReq;
 import com.wx.youqsd_manage.vo.req.UserLoginReq;
@@ -60,6 +62,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 
     @Resource
     UserMapper userMapper;
+
+    @Resource
+    UserShopRelMapper userShopRelMapper;
 //
 //    @Autowired
 //    private RedisTemplate redisTemplate;
@@ -119,6 +124,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         Integer pageSize = req.getPageSize();
         Page<UserInfo> page = Page.of(pageNum, pageSize);
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_type",2);
         if (StringUtils.isNotEmpty(req.getUserName())) {
             queryWrapper.like("user_name", req.getUserName());
         }
@@ -180,6 +186,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
                 user.setUserType("2");
                 user.setPhoneNo(phoneNumber.toString());
                 userMapper.insert(user);
+                //查询普通员工绑定的店铺信息
+                UserShopRel rel = new UserShopRel();
+                rel.setPhoneNo(phoneNumber.toString());
+                QueryWrapper<UserShopRel> wrapper = new QueryWrapper<>();
+                wrapper.eq("phone_no", phoneNumber.toString());
+                List<UserShopRel> userShopRels = userShopRelMapper.selectList(wrapper);
+                if (userShopRels != null && userShopRels.size() == 1) {
+                    user.setShopId(userShopRels.get(0).getShopId());
+                }
+
             }
         }
         String token = JwtUtils.generateJWT(user.getPhoneNo());

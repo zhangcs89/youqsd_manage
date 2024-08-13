@@ -79,4 +79,10 @@ public class UserInfo {
     @JsonProperty("token")
     private String token;
 
+    @Transient
+    @TableField(exist = false)
+    @ApiModelProperty(value = "普通用户绑定",required = false)
+    @JsonProperty("shopId")
+    private Integer shopId;
+
 }
