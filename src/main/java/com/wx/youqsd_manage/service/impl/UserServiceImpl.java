@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wx.youqsd_manage.common.exception.DefineException;
 import com.wx.youqsd_manage.common.exception.ErrcodeStatus;
+import com.wx.youqsd_manage.common.util.JwtUtils;
 import com.wx.youqsd_manage.common.util.VirtualSerialNo;
 import com.wx.youqsd_manage.entity.UserInfo;
 import com.wx.youqsd_manage.mappper.UserMapper;
@@ -64,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 //    private RedisTemplate redisTemplate;
 
     @Override
-    public void backLogin(UserLoginReq req) throws DefineException {
+    public UserInfo backLogin(UserLoginReq req) throws DefineException {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_name",req.getUsername());
         queryWrapper.eq("password",req.getPassword());
@@ -72,6 +73,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         if(CollectionUtils.isEmpty(userInfos)){
             throw new DefineException(ErrcodeStatus.USERNAME_PASS_ERROR);
         }
+        UserInfo userInfo = userInfos.get(0);
+        String token = JwtUtils.generateJWT(userInfo.getPhoneNo());
+        userInfo.setToken(token);
+        return userInfo;
 
     }
 
@@ -177,6 +182,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
                 userMapper.insert(user);
             }
         }
+        String token = JwtUtils.generateJWT(user.getPhoneNo());
+        user.setToken(token);
         return user;
     }
 

@@ -21,6 +21,8 @@ public enum ErrcodeStatus implements ICodeMessage {
 
     USERNAME_PASS_ERROR(Errcode.USERNAME_PASS_ERROR, "用户名或密码错误"),
 
+    SC_UNAUTHORIZED(Errcode.SC_UNAUTHORIZED, "token验证失败"),
+
     PHONE_EXIST_ERROR(Errcode.PHONE_EXIST_ERROR, "手机号已存在");
 
 

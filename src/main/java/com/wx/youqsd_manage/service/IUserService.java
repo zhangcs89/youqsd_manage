@@ -21,7 +21,7 @@ import com.wx.youqsd_manage.vo.resp.UserInfoPageResp;
 public interface IUserService extends IService<UserInfo> {
 
 
-    public void backLogin(UserLoginReq req) throws DefineException;
+    public UserInfo backLogin(UserLoginReq req) throws DefineException;
 
 
     /**

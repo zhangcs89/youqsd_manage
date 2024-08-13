@@ -1,11 +1,13 @@
 package com.wx.youqsd_manage.config;
 
+import com.wx.youqsd_manage.common.filters.ToKenFilter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -17,6 +19,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new ToKenFilter())
+                .addPathPatterns("/**") //拦截那些路径
+                .excludePathPatterns(
+                        "/doc.html",
+                        "/webjars/**",
+                        "/login/**",
+                        "/swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/v2/api-docs"
+                ); //放行那些路径
+    }
 
     @Override
     public Validator getValidator() {

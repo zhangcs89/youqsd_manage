@@ -71,4 +71,8 @@ public class UserInfo {
     @JsonProperty("SessionKey")
     private String SessionKey;
 
+    @ApiModelProperty(value = "token用与拦截请求",required = false)
+    @JsonProperty("token")
+    private String token;
+
 }

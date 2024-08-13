@@ -6,7 +6,7 @@ import com.wx.youqsd_manage.common.exception.DefineException;
 import com.wx.youqsd_manage.common.exception.ErrcodeStatus;
 import com.wx.youqsd_manage.common.response.Response;
 import com.wx.youqsd_manage.common.response.ResponseEntity;
-import com.wx.youqsd_manage.common.exception.DefineException;
+import com.wx.youqsd_manage.common.util.JwtUtils;
 import com.wx.youqsd_manage.entity.UserInfo;
 import com.wx.youqsd_manage.service.IUserService;
 import com.wx.youqsd_manage.vo.req.UserLoginReq;
@@ -37,14 +37,13 @@ public class LoginConttroller {
 
     @ApiOperation(value = "后台根据账号密码登陆", notes = "后台登陆", httpMethod = "POST", consumes = MimeConstant.JSON)
     @PostMapping("back/login")
-    public Response backLogin(@RequestBody UserLoginReq req) {
+    public Response<UserInfo> backLogin(@RequestBody UserLoginReq req) {
         try {
-            userService.backLogin(req);
-            return ResponseEntity.success("11111111111111111111111");
+            UserInfo userInfo = userService.backLogin(req);
+            return ResponseEntity.success(userInfo);
         } catch (DefineException e) {
             return ResponseEntity.fail(ErrcodeStatus.USERNAME_PASS_ERROR);
         }
-
     }
 
     @ApiOperation(value = "微信登录", notes = "微信登陆opcode获取opid的code，code是获取手机号的code", httpMethod = "POST", consumes = MimeConstant.JSON)
