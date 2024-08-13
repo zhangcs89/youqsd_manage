@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
 
 /**
  * @ClassName UserInfo
@@ -68,9 +69,11 @@ public class UserInfo {
     @JsonProperty("unionId")
     private String unionId;
 
-    @JsonProperty("SessionKey")
+    @JsonProperty("session_key")
     private String SessionKey;
 
+
+    @Transient
     @ApiModelProperty(value = "token用与拦截请求",required = false)
     @JsonProperty("token")
     private String token;

@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 
@@ -51,11 +52,12 @@ public class ShopInfo {
     @JsonProperty("contactPhone")
     private String contactPhone;
 
-
+    @Transient
     @ApiModelProperty(value = "登录人手机号",required = true)
     @JsonProperty("phoneNo")
     private String phoneNo;
 
+    @Transient
     @ApiModelProperty(value = "登录人类型",required = true)
     @JsonProperty("userType")
     private String userType;
