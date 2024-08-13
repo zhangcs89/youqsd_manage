@@ -67,10 +67,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
     @Override
     public UserInfo backLogin(UserLoginReq req) throws DefineException {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_name",req.getUsername());
-        queryWrapper.eq("password",req.getPassword());
+        queryWrapper.eq("user_name", req.getUsername());
+        queryWrapper.eq("password", req.getPassword());
         List<UserInfo> userInfos = userMapper.selectList(queryWrapper);
-        if(CollectionUtils.isEmpty(userInfos)){
+        if (CollectionUtils.isEmpty(userInfos)) {
             throw new DefineException(ErrcodeStatus.USERNAME_PASS_ERROR);
         }
         UserInfo userInfo = userInfos.get(0);
@@ -81,11 +81,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
     }
 
     @Override
-    public void insert(UserInfo userInfo) throws DefineException  {
+    public void insert(UserInfo userInfo) throws DefineException {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone_no", userInfo.getPhoneNo());
         UserInfo info = userMapper.selectOne(queryWrapper);
-        if(info != null){
+        if (info != null) {
             throw new DefineException(ErrcodeStatus.PHONE_EXIST_ERROR);
         }
         userInfo.setUserType("1");
@@ -97,7 +97,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone_no", userInfo.getPhoneNo());
         UserInfo info = userMapper.selectOne(queryWrapper);
-        if(info != null && (info.getUserId().equals(userInfo.getId()))){
+        if (info != null && (info.getUserId().equals(userInfo.getId()))) {
             throw new DefineException(ErrcodeStatus.PHONE_EXIST_ERROR);
         }
 
@@ -131,7 +131,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         Page<UserInfoPageResp> pageNew = new Page<>();
         List<UserInfoPageResp> respList = new ArrayList<>();
         for (int i = 0; i < records.size(); i++) {
-            if(!("admin").equals(records.get(i).getUserName())){
+            if (!("admin").equals(records.get(i).getUserName())) {
                 UserInfoPageResp resp = new UserInfoPageResp();
                 BeanUtils.copyProperties(records.get(i), resp);
                 respList.add(resp);
@@ -145,10 +145,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
     }
 
 
-
-
     @Override
-    public UserInfo  wxLogin(String code,String opCode) {
+    public UserInfo wxLogin(String code, String opCode) {
         String url = wxLoginUrl + "?appid=" + appId + "&secret=" + appSecret + "&js_code=" + opCode + "&grant_type=authorization_code";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -158,22 +156,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
 
         // 解析微信服务器的响应
         String responseBody = response.getBody();
-        System.out.println("获取opid返回值+++++++++++++++++++++++++++"+responseBody);
+        System.out.println("获取opid返回值+++++++++++++++++++++++++++" + responseBody);
         //提取openid和session_key
         Map<String, String> wxResponse = parseWxResponse(responseBody);
         String openid = wxResponse.get("openid");
         String session_key = wxResponse.get("session_key");
 
-        // 检查数据库中是否已经有一个与这个openid关联的用户
-        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("open_id", openid);
-        UserInfo user = userMapper.selectOne(queryWrapper);
-        if (user == null) {
-            //调用小程序获取手机号,并插入新的数据
-            String str = getPhonNo(code);
-            JSONObject jsonObject = JSON.parseObject(str);
-            if(jsonObject.getInteger("errcode") == 0){
-                Map phoneInfo = jsonObject.getObject("phone_info", Map.class);
+        String str = getPhonNo(code);
+        JSONObject jsonObject = JSON.parseObject(str);
+
+        UserInfo user = new UserInfo();
+        //调用小程序获取手机号,并插入新的数据
+        if (jsonObject.getInteger("errcode") == 0) {
+            Map phoneInfo = jsonObject.getObject("phone_info", Map.class);
+            // 检查数据库中是否已经有一个与手机号关联的用户
+            QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("phone_no", phoneInfo.get("phoneNumber"));
+            user = userMapper.selectOne(queryWrapper);
+            if (user == null) {
                 Object phoneNumber = phoneInfo.get("phoneNumber");
                 user = new UserInfo();
                 user.setOpenId(openid);
@@ -195,14 +195,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         return wxResponse;
     }
 
-    private String getAccessToken(){
+    private String getAccessToken() {
         String tokenUrl = String.format(
                 "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
                 appId, appSecret);
         JSONObject token = JSON.parseObject(HttpUtil.get(tokenUrl));
 //        String accessToken = (String) redisTemplate.opsForValue().get("access_token");
 //        System.out.println("accessToken+++++++++++++++++++"+accessToken);
-        System.out.println("accessToken+++++++++++++++++++"+token.getString("access_token"));
+        System.out.println("accessToken+++++++++++++++++++" + token.getString("access_token"));
 //        if(accessToken == null){
 //            accessToken = token.getString("access_token");
 //            redisTemplate.opsForValue().set("access_token", accessToken, 2, TimeUnit.HOURS);
@@ -210,7 +210,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         return token.getString("access_token");
     }
 
-    private String getPhonNo(String code){
+    private String getPhonNo(String code) {
         //通过appid和secret来获取token
         String accessToken = getAccessToken();
         //通过token和code来获取用户手机号
@@ -221,12 +221,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         //封装请求头
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Map<String, String>> httpEntity = new HttpEntity<>(paramMap,headers);
+        HttpEntity<Map<String, String>> httpEntity = new HttpEntity<>(paramMap, headers);
         //通过RestTemplate发送请求，获取到用户手机号码
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(url, httpEntity, String.class);
         String responseBody = response.getBody();
-        System.out.println("获取手机号码+++++++++++++++++++++++++++"+responseBody);
+        System.out.println("获取手机号码+++++++++++++++++++++++++++" + responseBody);
         //返回到前端展示
         return response.getBody();
     }
