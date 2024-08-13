@@ -53,11 +53,13 @@ public class ShopInfo {
     private String contactPhone;
 
     @Transient
+    @TableField(exist = false)
     @ApiModelProperty(value = "登录人手机号",required = true)
     @JsonProperty("phoneNo")
     private String phoneNo;
 
     @Transient
+    @TableField(exist = false)
     @ApiModelProperty(value = "登录人类型",required = true)
     @JsonProperty("userType")
     private String userType;

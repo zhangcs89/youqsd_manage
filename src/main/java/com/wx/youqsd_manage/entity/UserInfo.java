@@ -74,6 +74,7 @@ public class UserInfo {
 
 
     @Transient
+    @TableField(exist = false)
     @ApiModelProperty(value = "token用与拦截请求",required = false)
     @JsonProperty("token")
     private String token;
