@@ -21,10 +21,10 @@ import org.springframework.data.annotation.Transient;
  */
 @Data
 @TableName(value = "t_user_info")
-@ApiModel("管理员用户实体类")
+@ApiModel("普通用户实体类")
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserInfo {
+public class UserInfoWx {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -79,5 +79,10 @@ public class UserInfo {
     @JsonProperty("token")
     private String token;
 
+    @Transient
+    @TableField(exist = false)
+    @ApiModelProperty(value = "普通用户绑定",required = false)
+    @JsonProperty("shopId")
+    private Integer shopId;
 
 }

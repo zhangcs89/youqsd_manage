@@ -31,12 +31,12 @@
         s.update_time
         FROM
         t_shop_info s
-        LEFT JOIN t_user_shop_rel r on s.id = r.shop_id
-        left join t_user_info u on u.phone_no = r.phone_no
+--         LEFT JOIN t_user_shop_rel r on s.id = r.shop_id
+--         left join t_user_info u on u.phone_no = r.phone_no
         <where>
-            <if test="param.userType == '2' ">
-                AND u.phone_no = #{phoneNo}
-            </if>
+<!--            <if test="param.userType == '2' ">-->
+<!--                AND u.phone_no = #{phoneNo}-->
+<!--            </if>-->
 <!--            <if test="param.phoneNo != null and param.phoneNo != ''">-->
 <!--                AND u.phone_no = #{param.phoneNo}-->
 <!--            </if>-->

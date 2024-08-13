@@ -36,17 +36,9 @@ public class ShopInfoPageReq extends PageDTO implements Serializable {
     @JsonProperty("contactPhone")
     private String contactPhone;
 
-    @ApiModelProperty("用户姓名")
-    @JsonProperty("userName")
-    private String userName;
-
     @ApiModelProperty("手机号")
     @JsonProperty("phoneNo")
     private String phoneNo;
-
-    @ApiModelProperty("微信名称")
-    @JsonProperty("wxName")
-    private String wxName;
 
     @ApiModelProperty(value = "登录人类型",required = true)
     @JsonProperty("userType")
@@ -84,14 +76,6 @@ public class ShopInfoPageReq extends PageDTO implements Serializable {
         this.contactPhone = contactPhone;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getPhoneNo() {
         return phoneNo;
     }
@@ -100,13 +84,6 @@ public class ShopInfoPageReq extends PageDTO implements Serializable {
         this.phoneNo = phoneNo;
     }
 
-    public String getWxName() {
-        return wxName;
-    }
-
-    public void setWxName(String wxName) {
-        this.wxName = wxName;
-    }
 
     public String getUserType() {
         return userType;

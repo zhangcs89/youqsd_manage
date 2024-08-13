@@ -25,7 +25,7 @@ public interface IUserService extends IService<UserInfo> {
 
 
     /**
-     * 新增
+     * 新增管理员
      * @param userInfo
      */
     public void insert(UserInfo userInfo) throws DefineException ;
@@ -49,11 +49,5 @@ public interface IUserService extends IService<UserInfo> {
      */
     public IPage<UserInfoPageResp> findPageList(UserInfoPageReq req);
 
-    /**
-     * 微信登录
-     * @param code
-     * @param opCode
-     * @return
-     */
-    public UserInfo  wxLogin(String code,String opCode) ;
+
 }

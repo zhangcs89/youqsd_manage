@@ -8,8 +8,11 @@ import com.wx.youqsd_manage.common.response.Response;
 import com.wx.youqsd_manage.common.response.ResponseEntity;
 import com.wx.youqsd_manage.common.util.JwtUtils;
 import com.wx.youqsd_manage.entity.UserInfo;
+import com.wx.youqsd_manage.entity.UserInfoWx;
 import com.wx.youqsd_manage.service.IUserService;
+import com.wx.youqsd_manage.service.IUserWxService;
 import com.wx.youqsd_manage.vo.req.UserLoginReq;
+import com.wx.youqsd_manage.vo.resp.UsrInfoResp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -35,6 +38,9 @@ public class LoginConttroller {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IUserWxService userWxService;
+
     @ApiOperation(value = "后台根据账号密码登陆", notes = "后台登陆", httpMethod = "POST", consumes = MimeConstant.JSON)
     @PostMapping("back/login")
     public Response<UserInfo> backLogin(@RequestBody UserLoginReq req) {
@@ -48,9 +54,9 @@ public class LoginConttroller {
 
     @ApiOperation(value = "微信登录", notes = "微信登陆opcode获取opid的code，code是获取手机号的code", httpMethod = "POST", consumes = MimeConstant.JSON)
     @GetMapping("wx/login")
-    public Response<UserInfo> wxLogin(@RequestParam(value = "code", required = true) String code,
-                            @RequestParam(value = "opCode", required = true) String opCode) {
-        UserInfo userInfo = userService.wxLogin(code,opCode);
-        return ResponseEntity.success(userInfo);
+    public Response<UsrInfoResp> wxLogin(@RequestParam(value = "code", required = true) String code,
+                                         @RequestParam(value = "opCode", required = true) String opCode) {
+        UsrInfoResp resp = userWxService.wxLogin(code,opCode);
+        return ResponseEntity.success(resp);
     }
 }

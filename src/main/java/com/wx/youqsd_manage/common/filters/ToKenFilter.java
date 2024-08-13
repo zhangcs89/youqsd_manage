@@ -33,19 +33,19 @@ public class ToKenFilter implements HandlerInterceptor {
             if(StringUtils.isEmpty(jwtToken)){
                 throw new DefineException(ErrcodeStatus.SC_UNAUTHORIZED);
             }
-            // 请替换下面的方法和密钥为你实际使用的JWT库和密钥
-            Claims claims = JwtUtils.analysisJWT(jwtToken);
-
-            // 3. 验证JWT令牌
-            // 3.1 签名验证已经在解码中完成
-            // 3.2 过期验证
-            Date expirationDate = claims.getExpiration();
-            Date now = new Date();
-            if (expirationDate.before(now)) {
-                // 令牌已过期，发送错误响应
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return false;
-            }
+//            // 请替换下面的方法和密钥为你实际使用的JWT库和密钥
+//            Claims claims = JwtUtils.analysisJWT(jwtToken);
+//
+//            // 3. 验证JWT令牌
+//            // 3.1 签名验证已经在解码中完成
+//            // 3.2 过期验证
+//            Date expirationDate = claims.getExpiration();
+//            Date now = new Date();
+//            if (expirationDate.before(now)) {
+//                // 令牌已过期，发送错误响应
+//                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                return false;
+//            }
 
             // 3.3 权限验证，根据需要执行
 

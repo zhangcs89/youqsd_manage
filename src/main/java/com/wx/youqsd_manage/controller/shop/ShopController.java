@@ -72,9 +72,7 @@ public class ShopController {
             httpMethod = "POST", consumes = MimeConstant.JSON)
     @PostMapping("/shopList")
     public Response<IPage<ShopInfoPageResp>> shopList(@RequestBody ShopInfoPageReq req) {
-        if (StringUtils.isEmptyOrWhitespaceOnly((req.getPhoneNo()))
-                && StringUtils.isEmptyOrWhitespaceOnly((req.getUserName()))
-                && StringUtils.isEmptyOrWhitespaceOnly((req.getWxName()))) {
+        if (StringUtils.isEmptyOrWhitespaceOnly((req.getPhoneNo()))) {
             return ResponseEntity.fail(ErrcodeStatus.PARAM_ERROR);
         }
         IPage<ShopInfoPageResp> pageList = shopService.findPageList(req);

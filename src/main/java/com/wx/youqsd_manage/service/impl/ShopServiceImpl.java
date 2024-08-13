@@ -11,6 +11,7 @@ import com.wx.youqsd_manage.entity.UserInfo;
 import com.wx.youqsd_manage.entity.UserShopRel;
 import com.wx.youqsd_manage.mappper.ShopMapper;
 import com.wx.youqsd_manage.mappper.UserMapper;
+import com.wx.youqsd_manage.mappper.UserShopRelMapper;
 import com.wx.youqsd_manage.service.IShopService;
 import com.wx.youqsd_manage.vo.req.ShopInfoPageReq;
 import com.wx.youqsd_manage.vo.resp.ShopInfoPageResp;
@@ -38,16 +39,22 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, ShopInfo> implement
     @Resource
     ShopMapper shopMapper;
 
+    @Resource
+    UserShopRelMapper userShopRelMapper;
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void insert(ShopInfo shopInfo) {
         shopInfo.setCreateTime(new Date());
         shopMapper.save(shopInfo);
-        //插入关联表
-        UserShopRel rel = new UserShopRel();
-        rel.setPhoneNo(shopInfo.getPhoneNo());
-        rel.setShopId(shopInfo.getId());
-        shopMapper.insetRel(rel);
+        if("2".equals(shopInfo.getUserType())){
+            //如果是普通员工 插入关联表
+            UserShopRel rel = new UserShopRel();
+            rel.setPhoneNo(shopInfo.getPhoneNo());
+            rel.setShopId(shopInfo.getId());
+            shopMapper.insetRel(rel);
+        }
+
     }
 
     @Override
@@ -63,6 +70,10 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, ShopInfo> implement
         QueryWrapper<ShopInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
         shopMapper.delete(queryWrapper);
+        //删除绑定关系
+        QueryWrapper<UserShopRel> wrapper = new QueryWrapper<>();
+        wrapper.eq("shop_id", id);
+        userShopRelMapper.delete(wrapper);
     }
 
     @Override
