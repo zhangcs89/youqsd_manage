@@ -7,7 +7,7 @@ spring:
   # 数据库连接
   datasource:
     username: root
-    password: 123456
+    password: root@123456
     url: jdbc:mysql://101.42.1.209:3306/youqsd_manage_test
     driver-class-name: com.mysql.cj.jdbc.Driver
 

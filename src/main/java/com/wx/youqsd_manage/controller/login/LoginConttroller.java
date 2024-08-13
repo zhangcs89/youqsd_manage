@@ -49,7 +49,7 @@ public class LoginConttroller {
 
     @ApiOperation(value = "微信登录", notes = "微信登陆opcode获取opid的code，code是获取手机号的code", httpMethod = "POST", consumes = MimeConstant.JSON)
     @GetMapping("wx/login")
-    public Response wxLogin(@RequestParam(value = "code", required = true) String code,
+    public Response<UserInfo> wxLogin(@RequestParam(value = "code", required = true) String code,
                             @RequestParam(value = "opCode", required = true) String opCode) {
         UserInfo userInfo = userService.wxLogin(code,opCode);
         return ResponseEntity.success(userInfo);
